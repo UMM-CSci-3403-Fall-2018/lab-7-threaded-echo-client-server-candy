@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class EchoClient {
 	public static final int PORT_NUMBER = 6013;
@@ -11,6 +12,13 @@ public class EchoClient {
 	public static void main(String[] args) throws IOException {
 		EchoClient client = new EchoClient();
 		client.start();
+		Scanner keyboard = new Scanner(System.in);
+		System.out.println("enter info");
+		int myint = keyboard.nextInt();
+	}
+
+	public interface runnable{
+		public void run();
 	}
 
 	private void start() throws IOException {
