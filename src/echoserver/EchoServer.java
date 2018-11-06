@@ -13,17 +13,39 @@ public class EchoServer {
 		EchoServer server = new EchoServer();
 		server.start();
 	}
+	private class Threader implements Runnable{
+		Socket socket;
+		OutputStream outputStream;
+		InputStream inputStream;
+
+		public Threader (Socket socket){
+			try{
+				this.socket = socket;
+				this.inputStream = socket.getInputStream();
+				this.outputStream = socket.getOutputStream();
+			}catch (IOException ioe) {
+				System.out.println(ioe);
+		}
+	}
+	public void run(){
+		int b;
+		try{
+			while ((b = inputStream.read()) != -1){
+			outputStream.write(b);
+		}
+		socket.shutdownOutput();
+	}catch (IOException ioe){
+		System.out.println(ioe);
+	}
+	}
+}
 
 	private void start() throws IOException, InterruptedException {
 		ServerSocket serverSocket = new ServerSocket(PORT_NUMBER);
 		while (true) {
 			Socket socket = serverSocket.accept();
-			InputStream inputStream = socket.getInputStream();
-			OutputStream outputStream = socket.getOutputStream();
-			int b;
-			while ((b = inputStream.read()) != -1) {
-				outputStream.write(b);
-			}
+			Thread Client = new Thread(new Threader(socket));
+			Client.start();
 		}
 	}
 }
