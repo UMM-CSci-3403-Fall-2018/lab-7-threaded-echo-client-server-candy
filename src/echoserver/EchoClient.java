@@ -19,7 +19,14 @@ public class EchoClient {
 
 	public interface runnable{
 		public void run();
+		Thread t = new Thread(new keyboardReader());
+		t start();
+		t wait();
 	}
+
+	public class keyboardReader implements runnable;
+
+
 
 	private void start() throws IOException {
 		Socket socket = new Socket("localhost", PORT_NUMBER);
