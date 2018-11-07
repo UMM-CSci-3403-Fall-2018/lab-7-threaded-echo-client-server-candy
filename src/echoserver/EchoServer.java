@@ -28,8 +28,9 @@ public class EchoServer {
 		}
 	}
 	public void run(){
-		int b;
+		//Runs until KeyboardReader is done.
 		try{
+			int b;
 			while ((b = inputStream.read()) != -1){
 			outputStream.write(b);
 		}
